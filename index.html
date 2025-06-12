@@ -5,52 +5,113 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Average Calculator</title>
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
-      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #6dd5ed, #2193b0);
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .container {
+      background-color: #ffffffdd;
       padding: 40px;
-      background-color: #f0f4f8;
+      border-radius: 16px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+      max-width: 500px;
+      width: 90%;
+      text-align: center;
+      backdrop-filter: blur(5px);
     }
+
     h1 {
+      color: #1c3b5a;
+      margin-bottom: 20px;
+      font-size: 28px;
+    }
+
+    p {
       color: #333;
+      font-size: 16px;
+      margin-bottom: 20px;
     }
+
     input[type="text"] {
-      padding: 10px;
-      width: 300px;
+      padding: 12px;
+      width: 100%;
+      font-size: 16px;
+      border: 2px solid #2193b0;
+      border-radius: 8px;
+      outline: none;
+      margin-bottom: 15px;
+      transition: all 0.3s ease;
     }
+
+    input[type="text"]:focus {
+      border-color: #6dd5ed;
+      background-color: #f0fbff;
+    }
+
     button {
-      padding: 10px 20px;
-      margin-left: 10px;
-      background-color: #007bff;
+      padding: 12px 24px;
+      background: linear-gradient(90deg, #2193b0, #6dd5ed);
       color: white;
+      font-size: 16px;
       border: none;
+      border-radius: 8px;
       cursor: pointer;
+      transition: transform 0.2s ease;
     }
+
+    button:hover {
+      transform: scale(1.05);
+    }
+
     #result {
-      margin-top: 20px;
+      margin-top: 25px;
+      font-size: 18px;
       font-weight: bold;
+      color: #1c3b5a;
+      transition: all 0.3s ease-in-out;
     }
   </style>
 </head>
 <body>
-  <h1>Average Calculator</h1>
-  <p>Enter numbers separated by commas (e.g., 10, 20, 30):</p>
-  <input type="text" id="numbersInput" placeholder="Enter numbers" />
-  <button onclick="calculateAverage()">Calculate</button>
-  <div id="result"></div>
+  <div class="container">
+    <h1>Average Calculator</h1>
+    <p>Enter numbers separated by commas (e.g., 10, 20, 30):</p>
+    <input type="text" id="numbersInput" placeholder="Enter numbers" />
+    <button onclick="calculateAverage()">Calculate</button>
+    <div id="result"></div>
+  </div>
 
   <script>
     function calculateAverage() {
       const input = document.getElementById("numbersInput").value;
-      const numbers = input.split(',').map(n => parseFloat(n.trim())).filter(n => !isNaN(n));
-      
+      const numbers = input
+        .split(',')
+        .map(n => parseFloat(n.trim()))
+        .filter(n => !isNaN(n));
+
+      const resultDiv = document.getElementById("result");
+
       if (numbers.length === 0) {
-        document.getElementById("result").textContent = "Please enter valid numbers.";
+        resultDiv.textContent = "Please enter valid numbers.";
+        resultDiv.style.color = "#e74c3c"; // red for error
         return;
       }
 
       const sum = numbers.reduce((acc, val) => acc + val, 0);
       const average = sum / numbers.length;
-      document.getElementById("result").textContent = "Average: " + average.toFixed(2);
+      resultDiv.textContent = "Average: " + average.toFixed(2);
+      resultDiv.style.color = "#1c3b5a"; // back to default
     }
   </script>
 </body>
