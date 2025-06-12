@@ -1,11 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Stock Analytics</title>
-  </head>
-  <body>
-    <div id="root"></div>
-  </body>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Average Calculator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 40px;
+      background-color: #f0f4f8;
+    }
+    h1 {
+      color: #333;
+    }
+    input[type="text"] {
+      padding: 10px;
+      width: 300px;
+    }
+    button {
+      padding: 10px 20px;
+      margin-left: 10px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    #result {
+      margin-top: 20px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h1>Average Calculator</h1>
+  <p>Enter numbers separated by commas (e.g., 10, 20, 30):</p>
+  <input type="text" id="numbersInput" placeholder="Enter numbers" />
+  <button onclick="calculateAverage()">Calculate</button>
+  <div id="result"></div>
+
+  <script>
+    function calculateAverage() {
+      const input = document.getElementById("numbersInput").value;
+      const numbers = input.split(',').map(n => parseFloat(n.trim())).filter(n => !isNaN(n));
+      
+      if (numbers.length === 0) {
+        document.getElementById("result").textContent = "Please enter valid numbers.";
+        return;
+      }
+
+      const sum = numbers.reduce((acc, val) => acc + val, 0);
+      const average = sum / numbers.length;
+      document.getElementById("result").textContent = "Average: " + average.toFixed(2);
+    }
+  </script>
+</body>
 </html>
